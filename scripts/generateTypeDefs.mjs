@@ -4,7 +4,6 @@ import path from 'path'
 const generateTypeDefs = BASE_PATH => {
   return new Promise((resolve, reject) => {
     const typeDefFiles = []
-    const baseSchema = fs.readFileSync('./scripts/_base-schema.gql')
 
     const ws = fs.createWriteStream(path.join(BASE_PATH, 'typeDefs.gql'))
     ws.on('close', () => resolve(typeDefFiles))
@@ -36,3 +35,18 @@ const generateTypeDefs = BASE_PATH => {
 }
 
 export default generateTypeDefs
+
+const baseSchema = `# Base Schema:
+type Query {
+  _: Boolean
+}
+
+type Mutation {
+  _: Boolean
+}
+
+type Subscription {
+  _: Boolean
+}
+
+`
