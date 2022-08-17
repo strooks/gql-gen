@@ -1,3 +1,5 @@
+#!/usr/bin/node
+
 import fs from 'fs'
 import path from 'path'
 import yargs from 'yargs/yargs'
