@@ -1,0 +1,17 @@
+{
+  "name": "strooks-gql-gen",
+  "version": "0.1.1",
+  "description": "code generator for use with graphql setups",
+  "main": "scripts/index.mjs",
+  "bin": {
+    "gql-gen": "./scripts/index.mjs"
+  },
+  "repository": "https://github.com/strooks/gql-gen",
+  "author": "andre.padez@gmail.com",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "mkdirp": "^1.0.4",
+    "yargs": "^17.5.1"
+  }
+}
