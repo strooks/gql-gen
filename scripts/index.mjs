@@ -26,7 +26,7 @@ const BASE_PATH = path.resolve(SOURCE)
 async function generate() {
   const typeDefFiles = await generateTypeDefs(BASE_PATH)
   console.log('successfully wrote typeDefs.gql')
-  generateSchemaFile()
+  generateSchemaFile(BASE_PATH)
   console.log('successfully wrote schema/index.js')
   const typeMap = mapTypes(BASE_PATH, typeDefFiles)
   handleQueries(BASE_PATH, API_URL, typeMap)

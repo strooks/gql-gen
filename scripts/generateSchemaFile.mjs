@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-const generateSchemaFile = () => {
+const generateSchemaFile = BASE_PATH => {
   const imports = []
   const resolvers = []
 
