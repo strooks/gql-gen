@@ -35,7 +35,7 @@ const schema = {
 export default schema
 `
 
-  fs.writeFileSync(path.join(BASE_PATH, 'index.js'), template, 'utf-8')
+  fs.writeFileSync(path.join(BASE_PATH, 'schema.js'), template, 'utf-8')
 }
 
 export default generateSchemaFile
