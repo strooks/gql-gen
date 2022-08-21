@@ -1,6 +1,5 @@
 import fs from 'fs'
 import path from 'path'
-const BASE_PATH = path.resolve('src', 'graphql', 'schema')
 
 const generateSchemaFile = () => {
   const imports = []
