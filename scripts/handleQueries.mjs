@@ -74,7 +74,7 @@ const generateQueryFiles = async (BASE_PATH, typeMap, queries) => {
 const handleQueriesFile = (BASE_PATH, queries) => {
   let template = `import gqlClient from './client'`
   queries.forEach(q => {
-    template += `\nimport query${capitalize(q.queryName)} from './${q.queryName}.gql'`
+    template += `\nimport query${capitalize(q.queryName)} from './queries/${q.queryName}.gql'`
   })
 
   template += '\n\n' + queries.map(q => q.fn).join('\n') + '\n'
