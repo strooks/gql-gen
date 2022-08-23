@@ -59,12 +59,15 @@ const generateQueryFiles = async (BASE_PATH, typeMap, queries) => {
       return arr.join('\n')
     }
 
-    let template = `query ${queryName}${resultParenthesis} {
+    let template = `query ${queryName}${resultParenthesis}`
+    if (returnType in typeMap) {
+      template += `{
   ${queryName}${params.length ? `(${params.map(p => `${p}: $${p}`).join(', ')})` : ''} {
     ${parseFields(typeMap[returnType])}
   }
 }
 `
+    }
     const filePath = path.join(BASE_PATH, 'queries', queryName + '.gql')
     fs.writeFileSync(filePath, template)
     console.log('successfully wrote queries/', queryName + '.gql')
@@ -74,6 +77,7 @@ const generateQueryFiles = async (BASE_PATH, typeMap, queries) => {
 const handleQueriesFile = (BASE_PATH, queries) => {
   let template = `import gqlClient from './client'`
   queries.forEach(q => {
+    /* prettier-ignore */
     template += `\nimport query${capitalize(q.queryName)} from './queries/${q.queryName}.gql'`
   })
 

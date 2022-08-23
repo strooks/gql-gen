@@ -6,6 +6,7 @@ import yargs from 'yargs/yargs'
 import generateTypeDefs from './generateTypeDefs.mjs'
 import generateSchemaFile from './generateSchemaFile.mjs'
 import handleQueries from './handleQueries.mjs'
+import handleMutations from './handleMutations.mjs'
 import mapTypes from './map-types.mjs'
 
 const argv = yargs(process.argv).argv
@@ -29,7 +30,9 @@ async function generate() {
   console.log('successfully wrote schema/index.js')
   const typeMap = mapTypes(BASE_PATH, typeDefFiles)
   handleQueries(BASE_PATH, typeMap)
-  console.log('successfully wrote queries/index.js')
+  console.log('successfully wrote queries.js')
+  handleMutations(BASE_PATH, typeMap)
+  console.log('successfully wrote mutations.js')
 }
 
 generate()
