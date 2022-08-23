@@ -128,3 +128,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# gql-gen
+example/graphql/queries.js
+example/graphql/mutations.js
+example/graphql/typeDefs.gql
+example/graphql/schema.js

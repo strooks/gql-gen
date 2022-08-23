@@ -10,13 +10,12 @@ import mapTypes from './map-types.mjs'
 
 const argv = yargs(process.argv).argv
 const SOURCE = argv.s || argv.source
-const API_URL = argv.u || argv.url
 
-if (!SOURCE || !API_URL) {
+if (!SOURCE) {
   console.log()
-  console.error('ERROR: you must specify url (-u or --url) and source path (-s or --source)')
+  console.error('ERROR: you must specify source path (-s or --source)')
   console.log()
-  console.log('ex: $ gql-gen -s src/gql/schema -u http://localhost:3000/api/graphql')
+  console.log('ex: $ gql-gen -s src/gql/schema')
   console.log()
   process.exit(1)
 }
@@ -29,7 +28,7 @@ async function generate() {
   generateSchemaFile(BASE_PATH)
   console.log('successfully wrote schema/index.js')
   const typeMap = mapTypes(BASE_PATH, typeDefFiles)
-  handleQueries(BASE_PATH, API_URL, typeMap)
+  handleQueries(BASE_PATH, typeMap)
   console.log('successfully wrote queries/index.js')
 }
 

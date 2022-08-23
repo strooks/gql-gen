@@ -1,0 +1,39 @@
+extend type Query {
+  me: User
+  users: [User!]!
+  usersByRole(role: String!): [User!]!
+  userById(_id: ID!): User!
+  userByEmail(email: String!): User!
+}
+
+extend type Mutation {
+  updateUser(user: UserInput!): Boolean!
+}
+
+type User {
+  _id: ID!
+  firstName: String!
+  lastName: String!
+  name: String!
+  email: String!
+  role: String
+  image: String
+  createdAt: String!
+  updatedAt: String!
+  active: Boolean!
+  verified: Boolean!
+}
+
+input UserInput {
+  _id: ID!
+  firstName: String
+  lastName: String
+  name: String
+  email: String
+  role: String
+  image: String
+  createdAt: String
+  updatedAt: String
+  active: Boolean
+  verified: Boolean
+}

@@ -40,7 +40,7 @@ const generateQueryFiles = async (BASE_PATH, typeMap, queries) => {
       .replace(/\((\w)/, (_, s) => '($' + s)
       .replace(/\,\s(\w)/g, (_, s) => ', $' + s)
 
-    let [, returnType] = queryLine.match(/(\w+)(\!|\]|\]\!|\!\]\!)$/) || []
+    let [, returnType] = queryLine.match(/(\w+)(\!|\]|\]\!|\!\]\!)?$/) || []
 
     const parseFields = (fields, deep = 0) => {
       let arr = []
@@ -57,19 +57,7 @@ const generateQueryFiles = async (BASE_PATH, typeMap, queries) => {
         }
       })
       return arr.join('\n')
-
-      // return typeMap[returnType]
-      //   .map(f => {
-      //     if (f.fieldType in typeMap) {
-      //       console.log(deep, f.fieldType, typeMap[f.fieldType])
-      //       console.log(parseFields(typeMap[f.fieldType], ++deep))
-      //       // return `{${parseFields(typeMap[f.fieldType])}}`
-      //     }
-      //     return f.field
-      //   })
-      //   .join('\n    ')
     }
-    // console.log(returnType, ', ', fields)
 
     let template = `query ${queryName}${resultParenthesis} {
   ${queryName}${params.length ? `(${params.map(p => `${p}: $${p}`).join(', ')})` : ''} {
@@ -83,23 +71,21 @@ const generateQueryFiles = async (BASE_PATH, typeMap, queries) => {
   })
 }
 
-const handleQueriesFile = (BASE_PATH, API_URL, queries) => {
-  let template = `import { GraphQLClient } from 'graphql-request'`
+const handleQueriesFile = (BASE_PATH, queries) => {
+  let template = `import gqlClient from './client'`
   queries.forEach(q => {
     template += `\nimport query${capitalize(q.queryName)} from './${q.queryName}.gql'`
   })
 
-  template += `\n\nconst gqlClient = new GraphQLClient('${API_URL}')\n\n`
+  template += '\n\n' + queries.map(q => q.fn).join('\n') + '\n'
 
-  template += queries.map(q => q.fn).join('\n') + '\n'
-
-  fs.writeFileSync(path.join(BASE_PATH, 'queries', 'index.js'), template)
+  fs.writeFileSync(path.join(BASE_PATH, 'queries.js'), template)
 }
 
-const handleQueries = async (BASE_PATH, API_URL, typeMap) => {
+const handleQueries = async (BASE_PATH, typeMap) => {
   const queries = generateQueryDeclarations(BASE_PATH)
   await generateQueryFiles(BASE_PATH, typeMap, queries)
-  handleQueriesFile(BASE_PATH, API_URL, queries)
+  handleQueriesFile(BASE_PATH, queries)
 
   return { queries, typeMap }
 }

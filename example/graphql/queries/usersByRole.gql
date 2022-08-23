@@ -1,0 +1,15 @@
+query usersByRole($role: String!) {
+  usersByRole(role: $role) {
+    _id
+    firstName
+    lastName
+    name
+    email
+    role
+    image
+    createdAt
+    updatedAt
+    active
+    verified
+  }
+}

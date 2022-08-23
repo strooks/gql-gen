@@ -6,6 +6,9 @@
   "bin": {
     "gql-gen": "./scripts/index.mjs"
   },
+  "scripts": {
+    "test": "node ./scripts/index.mjs -s example/graphql"
+  },
   "repository": "https://github.com/strooks/gql-gen",
   "author": "andre.padez@gmail.com",
   "license": "MIT",
