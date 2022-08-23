@@ -60,15 +60,15 @@ const generateMutationFiles = async (BASE_PATH, typeMap, mutations) => {
       return arr.join('\n')
     }
 
-    let template = `mutation ${mutationName}${resultParenthesis}`
-    if (returnType in typeMap) {
-      template += `{
-  ${mutationName}${params.length ? `(${params.map(p => `${p}: $${p}`).join(', ')})` : ''} {
+    let template = `mutation ${mutationName}${resultParenthesis}{
+  ${mutationName}${params.length ? `(${params.map(p => `${p}: $${p}`).join(', ')})` : ''}`
+    if (returnType in typeMap)
+      template += ` {
     ${parseFields(typeMap[returnType])}
-  }
+  }`
+    template += `
 }
 `
-    }
 
     const filePath = path.join(BASE_PATH, 'mutations', mutationName + '.gql')
     fs.writeFileSync(filePath, template)

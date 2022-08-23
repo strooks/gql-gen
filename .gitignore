@@ -130,9 +130,9 @@ dist
 .pnp.*
 
 # gql-gen
-example/graphql/queries
+example/graphql/queries/
 example/graphql/queries.js
-example/graphql/mutations
+example/graphql/mutations/
 example/graphql/mutations.js
 example/graphql/typeDefs.gql
 example/graphql/schema.js
