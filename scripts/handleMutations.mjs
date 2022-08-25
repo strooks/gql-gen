@@ -22,7 +22,6 @@ const generateMutationDeclarations = BASE_PATH => {
         fn += params.length ? `{ ${params.join(', ')} })` : ')'
         fn += ` => gqlClient.request(mutation${capitalize(mutationName)}`
         fn += params.length ? `, { ${params.join(', ')} })` : `)`
-        fn += '.catch(errorHandler)'
 
         mutations.push({ mutationName, params, fn, mutationLine })
         mutationLine = lines[++lineIndex]
@@ -79,7 +78,6 @@ const generateMutationFiles = async (BASE_PATH, typeMap, mutations) => {
 
 const handleMutationsFile = (BASE_PATH, mutations) => {
   let template = `import gqlClient from './client'`
-  template += `\nimport errorHandler from './errorHandler'`
   mutations.forEach(m => {
     /* prettier-ignore */
     template += `\nimport mutation${capitalize(m.mutationName)} from './mutations/${m.mutationName}.gql'`
