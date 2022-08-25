@@ -21,7 +21,7 @@ const generateQueryDeclarations = BASE_PATH => {
         fn += params.length ? `{ ${params.join(', ')} })` : ')'
         fn += ` => gqlClient.request(query${capitalize(queryName)}`
         fn += params.length ? `, { ${params.join(', ')} })` : `)`
-
+        fn += '.catch(errorHandler)'
         queries.push({ queryName, params, fn, queryLine })
         queryLine = lines[++lineIndex]
       }
@@ -76,6 +76,7 @@ const generateQueryFiles = async (BASE_PATH, typeMap, queries) => {
 
 const handleQueriesFile = (BASE_PATH, queries) => {
   let template = `import gqlClient from './client'`
+  template += `\nimport errorHandler from './errorHandler'`
   queries.forEach(q => {
     /* prettier-ignore */
     template += `\nimport query${capitalize(q.queryName)} from './queries/${q.queryName}.gql'`
